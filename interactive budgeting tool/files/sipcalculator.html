@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Plans</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar .hamburger-btn {
+            display: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .navbar .logo h2 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.7rem;
+            margin-left: 10px;
+        }
+
+        .navbar .links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .navbar .links a {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .links a:hover {
+            color: #19e8ff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/images/cal.jpg') no-repeat center center/cover;
+            color: rgb(250, 247, 254);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            
+        }
+
+        .hero .cta-btn {
+            padding: 15px 30px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hero .cta-btn:hover {
+            background: #3700b3;
+        }
+
+        .investment-section {
+            padding: 60px 20px;
+            background: rgba(247, 250, 250, 0.834);
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.623);
+            background-color: #ffffff8b;
+        }
+
+        .investment-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #6806fa;
+            text-align: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #fcfbfb;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.376);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: #3ae1ffc0;
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            
+        }
+
+        @media (max-width: 768px) {
+            .navbar .hamburger-btn {
+                display: block;
+            }
+
+            .navbar .links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 40%;
+                height: 100vh;
+                background: rgb(254, 251, 251);
+                flex-direction: column;
+                justify-content: center;
+                transition: left 0.3s ease;
+            }
+
+            .navbar .links.show-menu {
+                left: 0;
+            }
+
+            .navbar .links a {
+                color: #000;
+            }
+
+            .navbar .close-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: linear-gradient(#6200ea,#6200ea);
+            border-radius: 25px;
+            color: rgb(251, 245, 245);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: background 0.3s ease;
+        }
+
+        .tab.active {
+            background: rgba(6, 215, 252, 0.856);
+            color: rgb(248, 245, 245);
+        }
+
+        .calculator {
+            display: none;
+        }
+
+        .calculator.active {
+            display: block;
+        }
+
+        .form-box {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .container_input,
+        .chart-container {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="number"],
+        input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: rgba(85, 13, 254, 0.834);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover{
+            background-color: #4f19ff;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .text_content {
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: rgb(8, 117, 136);
+            margin-bottom: 20px;
+        }
+
+        p, li {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container_input,
+            .chart-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="animate__animated animate__fadeInDown">
+        <nav class="navbar">
+            <span class="hamburger-btn">&#9776;</span>
+            <a href="investment.html" class="logo">
+                <img src="/images/logo.png" alt="logo">
+                <h2>Budgetingtool</h2>
+            </a>
+            <ul class="links">
+                <span class="close-btn">&times;</span>
+                <li><a href="stocks.html">STOCKS</a></li>
+                <li><a href="CRYPTO.HTML">CRYPTO</a></li>
+                <li><a href="commodities.html">COMMODITIES</a></li>
+                <li><a href="bonds.html">BONDS</a></li>
+                <li><a href="mutualfunds.html">MUTUAL FUNDS</a></li>
+        </nav>
+    </header>
+
+    <section class="hero animate__animated animate__fadeIn">
+        <div>
+            <h1>Financial calculator</h1>
+            <h3 style="font-size: 2.5rem; font-style: bold; color: white;" >calculate your financial and Returns</h3>
+            <button class="cta-btn">Get Started</button>
+        </div>
+    </section>
+
+    <section class="investment-section">
+        <h2>Financial calculator</h2>
+        <div class="container">
+            <div class="tabs">
+                <div class="tab active" onclick="showCalculator('fd')">Fixed Deposit</div>
+                <div class="tab" onclick="showCalculator('emi')">EMI</div>
+                <div class="tab" onclick="showCalculator('sip')">SIP</div>
+            </div>
+    
+            <div id="fd" class="calculator active">
+                <h1 style="font-size: 2.5rem; font-style: bold; color: rgb(102, 10, 250);">Fixed Deposit Calculator</h1>
+                <div class="form-box">
+                    <div class="container_input">
+                        <label for="investment">Total Investment:</label>
+                        <input type="number" id="investment" min="0" max="100000" step="1000" value="0">
+                        <input type="range" id="monthly-investment-slider" min="0" max="100000" step="1000" value="0">
+                        <label for="interest">Rate of Interest:</label>
+                        <input type="number" id="interest" min="0" max="20" step="1" value="1">
+                        <input type="range" id="interest-rate-slider" min="1" max="20" step="1" value="1">
+                        <label for="duration">Time Period (Years):</label>
+                        <input type="number" id="duration" min="0" max="50" step="1" value="0">
+                        <input type="range" id="time-period-slider" min="0" max="50" step="5" value="0">
+                        <button onclick="calculateFD()">Calculate</button>
+                        <br>
+                        <br>
+                        <br>
+                        <div id="result-fd" ></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-fd"></canvas>
+                    </div>
+                </div>
+                <div class="text_content">
+                    <h3>FD Calculator: Fixed Deposit Calculator</h3>
+                    <p>An FD calculator is a tool that helps you determine the maturity amount and interest earned on your fixed deposit investment.</p>
+                </div>
+            </div>
+    
+            <div id="emi" class="calculator">
+                <h1 style="font-size: 2.5rem; font-style: bold; color: rgb(102, 10, 250);">EMI Calculator</h1>
+                <div class="form-box">
+                    <div class="container_input">
+                        <label for="loanAmount">Loan Amount:</label>
+                        <input type="number" id="loanAmount" min="0" max="5000000" step="1000" value="0">
+                        <input type="range" id="loan-amount-slider" min="0" max="5000000" step="1000" value="0">
+                        <label for="interestRate">Rate of Interest:</label>
+                        <input type="number" id="interestRate" min="0" max="25" step="1" value="1">
+                        <input type="range" id="interest-rate-slider-emi" min="1" max="25" step="1" value="1">
+                        <label for="loanTerm">Loan Term (Months):</label>
+                        <input type="number" id="loanTerm" min="0" max="600" step="1" value="0">
+                        <input type="range" id="time-period-slider-emi" min="0" max="600" step="1" value="0">
+                        <button onclick="calculateEMI()">Calculate</button>
+                        <div id="result-emi"></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-emi"></canvas>
+                    </div>
+                </div>
+                <div class="text_content">
+                    <h3>EMI Calculator: Equated Monthly Installment Calculator</h3>
+                    <p>An EMI calculator is a tool that helps you determine the monthly installment you will have to pay when taking a loan.</p>
+                </div>
+            </div>
+    
+            <div id="sip" class="calculator">
+                <h1 style="font-size: 2.5rem; font-style: bold; color: rgb(102, 10, 250);">SIP Calculator</h1>
+                <div class="form-box">
+                    <div class="container_input">
+                        <label for="monthly-investment">Monthly SIP Amount:</label>
+                        <input type="number" id="monthly-investment" min="0" max="50000" step="500" value="0">
+                        <input type="range" id="monthly-investment-slider-sip" min="0" max="50000" step="500" value="0">
+                        <label for="interest-rate-sip">Rate of Interest:</label>
+                        <input type="number" id="interest-rate-sip" min="1" max="25" step="1" value="1">
+                        <input type="range" id="interest-rate-slider-sip" min="1" max="25" step="1" value="1">
+                        <label for="time-period-sip">Time Period (Years):</label>
+                        <input type="number" id="time-period-sip" min="0" max="50" step="1" value="0">
+                        <input type="range" id="time-period-slider-sip" min="0" max="50" step="5" value="0">
+                        <button onclick="calculateSIP()">Calculate</button>
+                        <div id="result-sip"></div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-sip"></canvas>
+                    </div>
+                </div>
+                <div class="text_content">
+                    <h3>SIP Calculator: Systematic Investment Plan Calculator</h3>
+                    <p>A SIP calculator is a tool that helps you determine the returns you can avail when parking your funds in mutual funds.</p>
+                </div>
+            </div>
+        </div>
+    
+      </section>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const navbarMenu = document.querySelector(".navbar .links");
+        const hamburgerBtn = document.querySelector(".hamburger-btn");
+        const closeBtn = document.querySelector(".close-btn");
+
+        hamburgerBtn.addEventListener("click", () => {
+            navbarMenu.classList.toggle("show-menu");
+        });
+
+        closeBtn.addEventListener("click", () => {
+            navbarMenu.classList.remove("show-menu");
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        function showCalculator(calculatorId) {
+            const calculators = document.querySelectorAll('.calculator');
+            calculators.forEach(calc => calc.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(calculatorId).classList.add('active');
+            document.querySelector(`[onclick="showCalculator('${calculatorId}')"]`).classList.add('active');
+        }
+
+        function calculateFD() {
+            const investment = parseFloat(document.getElementById('investment').value);
+            const interest = parseFloat(document.getElementById('interest').value);
+            const duration = parseFloat(document.getElementById('duration').value);
+
+            const futureValue = investment * (1 + (interest / 100) * duration);
+            const returns = futureValue - investment;
+
+            document.getElementById('result-fd').innerHTML = `Total Returns: ${returns.toFixed(2)}`;
+
+            const chartCtx = document.getElementById('chart-fd').getContext('2d');
+            new Chart(chartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Total Investment', 'Total Returns'],
+                    datasets: [{
+                        data: [investment, returns],
+                        backgroundColor: ['#FF6384', '#36A2EB']
+                    }]
+                }
+            });
+        }
+
+        function calculateEMI() {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTerm = parseFloat(document.getElementById('loanTerm').value);
+
+            const monthlyInterestRate = (interestRate / 100) / 12;
+            const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, loanTerm)) / (Math.pow(1 + monthlyInterestRate, loanTerm) - 1);
+            const totalPayment = emi * loanTerm;
+            const totalInterest = totalPayment - loanAmount;
+
+            document.getElementById('result-emi').innerHTML = `Monthly EMI: ${emi.toFixed(2)}<br>Total Interest: ${totalInterest.toFixed(2)}<br>Total Payment: ${totalPayment.toFixed(2)}`;
+
+            const chartCtx = document.getElementById('chart-emi').getContext('2d');
+            new Chart(chartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Loan Amount', 'Total Interest'],
+                    datasets: [{
+                        data: [loanAmount, totalInterest],
+                        backgroundColor: ['#FF6384', '#36A2EB']
+                    }]
+                }
+            });
+        }
+
+        function calculateSIP() {
+            const monthlyInvestment = parseFloat(document.getElementById('monthly-investment').value);
+            const interestRate = parseFloat(document.getElementById('interest-rate-sip').value);
+            const timePeriod = parseFloat(document.getElementById('time-period-sip').value);
+
+            const monthlyInterestRate = (interestRate / 100) / 12;
+            const totalMonths = timePeriod * 12;
+            let futureValue = 0;
+
+            for (let i = 0; i < totalMonths; i++) {
+                futureValue += monthlyInvestment + (futureValue * monthlyInterestRate);
+            }
+
+            const totalInvestment = monthlyInvestment * totalMonths;
+            const totalReturns = futureValue - totalInvestment;
+
+            document.getElementById('result-sip').innerHTML = `Total Investment: ${totalInvestment.toFixed(2)}<br>Total Returns: ${totalReturns.toFixed(2)}<br>Future Value: ${futureValue.toFixed(2)}`;
+
+            const chartCtx = document.getElementById('chart-sip').getContext('2d');
+            new Chart(chartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Total Investment', 'Total Returns'],
+                    datasets: [{
+                        data: [totalInvestment, totalReturns],
+                        backgroundColor: ['#FF6384', '#36A2EB']
+                    }]
+                }
+            });
+        }
+
+        document.getElementById('monthly-investment-slider').addEventListener('input', function() {
+            document.getElementById('investment').value = this.value;
+        });
+
+        document.getElementById('interest-rate-slider').addEventListener('input', function() {
+            document.getElementById('interest').value = this.value;
+        });
+
+        document.getElementById('time-period-slider').addEventListener('input', function() {
+            document.getElementById('duration').value = this.value;
+        });
+
+        document.getElementById('loan-amount-slider').addEventListener('input', function() {
+            document.getElementById('loanAmount').value = this.value;
+        });
+
+        document.getElementById('interest-rate-slider-emi').addEventListener('input', function() {
+            document.getElementById('interestRate').value = this.value;
+        });
+
+        document.getElementById('time-period-slider-emi').addEventListener('input', function() {
+            document.getElementById('loanTerm').value = this.value;
+        });
+
+        document.getElementById('monthly-investment-slider-sip').addEventListener('input', function() {
+            document.getElementById('monthly-investment').value = this.value;
+        });
+
+        document.getElementById('interest-rate-slider-sip').addEventListener('input', function() {
+            document.getElementById('interest-rate-sip').value = this.value;
+        });
+
+        document.getElementById('time-period-slider-sip').addEventListener('input', function() {
+            document.getElementById('time-period-sip').value = this.value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f2400;
+  padding: 10px 20px;
+  color: white;
+  width: 100%;
+  margin: 0;
+}
+.navbar .hamburger-btn {
+    display: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+.navbar .logo {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.navbar .logo img {
+    width: 40px;
+    border-radius: 50%;
+}
+.navbar .logo h2 {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.7rem;
+    margin-right: 250px;
+}
+.navbar .links {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    align-items: center;
+}
+.navbar .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: none;
+    color: #000;
+    cursor: pointer;
+}
+.navbar .links a {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.1s ease;
+}
+.navbar .links a:hover {
+    color: #19e8ff;
+}
+.navbar .login-btn {
+    border: none;
+    outline: none;
+    background: #e2b355;
+    color: #275360;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+.navbar .login-btn:hover {
+    background: #ddd;
+}
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/images/hero-bg.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero .cta-btn {
+            padding: 15px 30px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            animation: fadeIn 2s ease;
+        }
+
+        .hero .cta-btn:hover {
+            background: #3700b3;
+        }
+
+        section {
+            padding: 60px 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #6200ea;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background: #5ccfe3;
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 1rem;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+
+        footer {
+            background: #6200ea;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00bcd4;
+        }
+        @media (max-width: 950px) {
+    .navbar :is(.hamburger-btn, .close-btn) {
+        display: block;
+    }
+    .navbar {
+        padding: 15px 0;
+    }
+    .navbar .logo img {
+        display: none;
+    }
+    .navbar .logo h2 {
+        font-size: 1.4rem;
+    }
+    .navbar .links {
+        position: fixed;
+        top: 0;
+        z-index: 10;
+        left: -100%;
+        display: block;
+        height: 100vh;
+        width: 30%;
+        padding-top: 60px;
+        text-align: center;
+        background: #ebe8e8e8;
+        transition: 0.2s ease;
+    }
+    .navbar .links.show-menu {
+        left: 0;
+    }
+    .navbar .links a {
+        display: inline-flex;
+        margin: 20px 0;
+        font-size: 1.2rem;
+        color: #020202;
+    }
+    .navbar .links a:hover {
+        color: #0cddf8;
+    }
+    .navbar .login-btn {
+        font-size: 0.9rem;
+        padding: 7px 10px;
+    }
+}
+@media (max-width: 760px) {
+    .form-popup {
+        width: 95%;
+    }
+    .form-box .form-details {
+        display: none;
+    }
+    .form-box .form-content {
+        padding: 30px 20px;
+    }
+}
+.frame{
+  margin: 0;
+}
+    </style>
+</head>
+<body>
+    <header class="animate__animated animate__fadeInDown">
+        <nav class="navbar">
+            <span class="hamburger-btn">&#9776;</span>
+            <a href="mainpage.html" class="logo">
+                <img src="/images/logo.png" alt="logo">
+                <h2>BudgetingTool</h2>
+            </a>
+            <ul class="links">
+                <span class="close-btn">&times;</span>
+                <li><a href="bt.html">Expenses Tracker</a></li>
+                <li><a href="investment.html">Investment Plans</a></li>
+                <li><a href="healthinsurance.html">Health Insurance</a></li>
+                <li><a href="sipcalculator.html">Financial Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero animate__animated animate__fadeIn" style="margin: 0; border-radius: 0;">
+        <div >
+            <h1>Take Control of Your Finances</h1>
+            <p>Track expenses, set budgets, and achieve your financial goals.</p>
+            <button class="cta-btn">Get Started</button>
+        </div>
+    </section>
+
+    <main>
+        <!-- Connect to Digital Apps Section -->
+        <section class="animate__animated animate__fadeInUp">
+            <h2>Connect to Digital Apps</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <img src="/images/pp.jpg" alt="PhonePe">
+                    <h3>PhonePe</h3>
+                    <p>Sync your PhonePe transactions for real-time expense tracking.</p>
+                    <button class="cta-btn" style="padding: 15px 30px;
+                    background: #6200ea;
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                    animation: fadeIn 2s ease;">Connect</button>
+                </div>
+                <div class="card">
+                    <img src="/images/g.png" alt="Google Pay">
+                    <h3>Google Pay</h3>
+                    <p>Link your Google Pay account for seamless expense management.</p>
+                    <button class="cta-btn" style="padding: 15px 30px;
+                    background: #6200ea;
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                    animation: fadeIn 2s ease;">Connect</button>
+                </div>
+                <div class="card">
+                    <img src="https://logo.clearbit.com/paytm.com" alt="Paytm">
+                    <h3>Paytm</h3>
+                    <p>Integrate Paytm to track your payments and expenses.</p>
+                    <button class="cta-btn" style="padding: 15px 30px;
+                    background: #6200ea;
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                    animation: fadeIn 2s ease;"> Connect</button>
+                </div>
+                <div class="card">
+                    <img src="/images/ba.jpg" alt="Bank Account">
+                    <h3>Bank Account</h3>
+                    <p>Securely connect your bank account for comprehensive financial tracking.</p>
+                    <button class="cta-btn" style="padding: 15px 30px;
+                    background: #6200ea;
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                    animation: fadeIn 2s ease;">Connect</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advantages of Budgeting Tools -->
+        <section class="animate__animated animate__fadeInUp">
+            <h2>Advantages of Budgeting Tools</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <i class="fas fa-check-circle fa-3x"></i>
+                    <h3>Financial Awareness</h3>
+                    <p>Gain a clear understanding of your income and expenses.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-money-bill-wave fa-3x"></i>
+                    <h3>Cost Savings</h3>
+                    <p>Identify unnecessary expenses and save more money.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-chart-pie fa-3x"></i>
+                    <h3>Better Planning</h3>
+                    <p>Plan for future expenses and avoid financial stress.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights from Budgeting Tool Development -->
+        <section class="animate__animated animate__fadeInUp">
+            <h2>Insights from Budgeting Tool Development</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <i class="fas fa-user fa-3x"></i>
+                    <h3>User Experience</h3>
+                    <p>Simple and intuitive UI increases adoption.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-cogs fa-3x"></i>
+                    <h3>Customization</h3>
+                    <p>Personalized budget categories and alerts.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-robot fa-3x"></i>
+                    <h3>AI-Powered Insights</h3>
+                    <p>Predictive analytics for better financial planning.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="animate__animated animate__fadeInUp">
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; BudgetingTool</p>
+    </footer>
+
+    <script>
+        const navbarMenu = document.querySelector(".navbar .links");
+        const hamburgerBtn = document.querySelector(".hamburger-btn");
+        const closeBtn = document.querySelector(".close-btn");
+
+        hamburgerBtn.addEventListener("click", () => {
+            navbarMenu.classList.toggle("show-menu");
+        });
+
+        closeBtn.addEventListener("click", () => {
+            navbarMenu.classList.remove("show-menu");
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add more interactivity here if needed
+    </script>
+</body>
+</html>

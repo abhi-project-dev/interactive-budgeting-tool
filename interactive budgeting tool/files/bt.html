@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting Tool App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .navbar .hamburger-btn {
+            display: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .navbar .logo h2 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.7rem;
+            margin-left: 10px;
+        }
+
+        .navbar .links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .navbar .links a {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .links a:hover {
+            color: #19e8ff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/images/bt.jpg') no-repeat center center/cover;
+            color: rgb(21, 19, 19);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .hero .cta-btn {
+            padding: 15px 30px;
+            background: #6200ea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hero .cta-btn:hover {
+            background: #3700b3;
+        }
+
+
+        section {
+            padding: 60px 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #6200ea;
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.45);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.525);
+            background: #5ccfe3;
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #6200ea;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 1rem;
+            text-align: center;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        .limit {
+            margin-bottom: 20px;
+            text-align: right;
+            margin-right: 10px;
+            font-size: large;
+        }
+
+        .limit input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .limit button {
+            background-color:  #6200ead3;
+            color: rgb(253, 249, 249);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .limit button:hover {
+            background-color:  #6200ea;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.841);
+            border-radius: 8px;
+        }
+
+        header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;  
+        }
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select,
+        form button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form button {
+            background-color:  #6200ead6;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color:  #6200ea;
+        }
+
+        .expense-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .expense-table th,
+        .expense-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .expense-table th {
+            background-color:  #6200ea;
+            color: #fff;
+        }
+
+        .total-amount {
+            text-align: right;
+            font-size: 18px;
+        }
+
+        .filter {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .filter label {
+            margin-right: 10px;
+        }
+
+        .filter select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .edit-btn {
+            background-color: hsl(261, 76%, 69%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        .delete-btn {
+            background-color: hsl(0, 54%, 50%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Chart Container Styling */
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .chart-container canvas {
+            max-width: 50%;
+            height: 50%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        /* Bar Chart Specific Styling */
+        #barChart {
+            width: 45%;
+            height: 100px;
+        }
+
+        /* Pie Chart Specific Styling */
+        #pieChart {
+            width: 45%;
+            height: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .hamburger-btn {
+                display: block;
+            }
+
+            .navbar .links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 40%;
+                height: 100vh;
+                background: rgb(254, 251, 251);
+                flex-direction: column;
+                justify-content: center;
+                transition: left 0.3s ease;
+            }
+
+            .navbar .links.show-menu {
+                left: 0;
+            }
+
+            .navbar .links a {
+                color: #000;
+            }
+
+            .navbar .close-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        #frame{
+            margin: 0;
+            border-radius: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="animate__animated animate__fadeInDown">
+        <nav class="navbar">
+            <span class="hamburger-btn">&#9776;</span>
+            <a href="hom.html" class="logo">
+                <img src="/images/logo.png" alt="logo">
+                <h2>Budgetingtool</h2>
+            </a>
+            <ul class="links">
+                <span class="close-btn">&times;</span>
+                <li><a href="bt.html">Expenses tracker</a></li>
+                <li><a href="investment.html">Investment plans</a></li>
+                <li><a href="healthinsurance.html">Health Insurance</a></li>
+                <li><a href="sipcalculator.html">SIP Calculator</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="hero animate__animated animate__fadeIn" id="frame">
+        <div>
+            <h1>Take Control of Your Finances</h1>
+            <p>Track expenses, set budgets, and achieve your financial goals.</p>
+            <button class="cta-btn">Get Started</button>
+        </div>
+    </section>
+    <main>
+        <div class="container">
+            <h1 style="color:  #6200ea;">Budgeting Tool</h1>
+            <div class="limit">
+                <input type="number" id="income" placeholder="Enter your limit" required />
+                <button type="button" onclick="addIncome()">Set Limit</button>
+                <h3>Total Limit: $<span id="total-income">0</span></h3>
+            </div>
+            <form id="expense-form">
+                <input type="text" id="expense-name" placeholder="Expense Name" required />
+                <input type="number" id="expense-amount" placeholder="Amount" required />
+                <select id="expense-category" required>
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="date" id="expense-date" required />
+                <button type="submit">Add Expense</button>
+            </form>
+            <div class="filter">
+                <label for="filter-category">Filter by Category:</label>
+                <select id="filter-category">
+                    <option value="All">All</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="expense-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Expense Name</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expense-list"></tbody>
+                </table>
+                <div class="total-amount">
+                    <strong>Total:</strong> $<span id="total-amount">0</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+        <main>
+            <!-- Budgeting Tool Mobile App Models -->
+            <section class="animate__animated animate__fadeInUp">
+                <h2>Budgeting Tool Mobile App Models</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Expense Tracker</h3>
+                        <p>Track daily expenses and categorize them for better insights.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Budget Planner</h3>
+                        <p>Set monthly budgets and monitor your spending habits.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-piggy-bank"></i>
+                        <h3>Savings Goals</h3>
+                        <p>Plan and achieve your savings goals with ease.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- Advantages of Budgeting Tools -->
+            <section class="animate__animated animate__fadeInUp">
+                <h2>Advantages of Budgeting Tools</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Financial Awareness</h3>
+                        <p>Gain a clear understanding of your income and expenses.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <h3>Cost Savings</h3>
+                        <p>Identify unnecessary expenses and save more money.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>Better Planning</h3>
+                        <p>Plan for future expenses and avoid financial stress.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- Benefits for Users -->
+            <section class="animate__animated animate__fadeInUp">
+                <h2>Benefits for Users</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <i class="fas fa-user"></i>
+                        <h3>Personalized Insights</h3>
+                        <p>Get tailored recommendations based on your spending habits.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Time-Saving</h3>
+                        <p>Automate expense tracking and budgeting processes.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Financial Security</h3>
+                        <p>Build a safety net for emergencies and future goals.</p>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- Stages of Budgeting Tool App Development -->
+            <section class="animate__animated animate__fadeInUp">
+                <h2>Stages of Budgeting Tool App Development</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <h3>Design</h3>
+                        <p>Create intuitive and user-friendly interfaces.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Development</h3>
+                        <p>Build robust features for expense tracking and budgeting.</p>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Testing & Release</h3>
+                        <p>Test thoroughly and launch the app for users.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    
+     
+
+    <footer class="animate__animated animate__fadeInUp">
+        <p>&copy; BUDGETING TOOL</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let totalIncome = 0;
+        let totalExpenses = 0;
+        let expenses = [];
+        let barChart, pieChart;
+
+        function addIncome() {
+            const incomeInput = document.getElementById("income").value;
+            totalIncome += parseFloat(incomeInput) || 0;
+            document.getElementById("total-income").textContent = totalIncome.toFixed(2);
+            updateBudget();
+        }
+
+        function updateBudget() {
+            const remainingBudget = totalIncome - totalExpenses;
+            document.getElementById("total-income").textContent = totalIncome.toFixed(2);
+            document.getElementById("total-amount").textContent = totalExpenses.toFixed(2);
+            if (remainingBudget < 0) {
+                alert("Budget exceeded!");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const expenseForm = document.getElementById("expense-form");
+            const expenseList = document.getElementById("expense-list");
+            const totalAmount = document.getElementById("total-amount");
+            const filterCategory = document.getElementById("filter-category");
+
+            expenseForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById("expense-name").value;
+                const amount = parseFloat(document.getElementById("expense-amount").value);
+                const category = document.getElementById("expense-category").value;
+                const date = document.getElementById("expense-date").value;
+
+                const expense = {
+                    id: Date.now(),
+                    name,
+                    amount,
+                    category,
+                    date
+                };
+
+                expenses.push(expense);
+                totalExpenses += amount;
+                displayExpenses(expenses);
+                updateTotalAmount();
+                updateCharts();
+
+                expenseForm.reset();
+            });
+
+            expenseList.addEventListener("click", (e) => {
+                if (e.target.classList.contains("delete-btn")) {
+                    const id = parseInt(e.target.dataset.id);
+                    const expense = expenses.find(expense => expense.id === id);
+                    totalExpenses -= expense.amount;
+                    expenses = expenses.filter(expense => expense.id !== id);
+                    displayExpenses(expenses);
+                    updateTotalAmount();
+                    updateCharts();
+                }
+
+                if (e.target.classList.contains("edit-btn")) {
+                    const id = parseInt(e.target.dataset.id);
+                    const expense = expenses.find(expense => expense.id === id);
+
+                    document.getElementById("expense-name").value = expense.name;
+                    document.getElementById("expense-amount").value = expense.amount;
+                    document.getElementById("expense-category").value = expense.category;
+                    document.getElementById("expense-date").value = expense.date;
+
+                    totalExpenses -= expense.amount;
+                    expenses = expenses.filter(expense => expense.id !== id);
+                    displayExpenses(expenses);
+                    updateTotalAmount();
+                    updateCharts();
+                }
+            });
+
+            filterCategory.addEventListener("change", (e) => {
+                const category = e.target.value;
+                if (category === "All") {
+                    displayExpenses(expenses);
+                } else {
+                    const filteredExpenses = expenses.filter(expense => expense.category === category);
+                    displayExpenses(filteredExpenses);
+                }
+            });
+
+            function displayExpenses(expenses) {
+                expenseList.innerHTML = "";
+                expenses.forEach(expense => {
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${expense.name}</td>
+                        <td>$${expense.amount.toFixed(2)}</td>
+                        <td>${expense.category}</td>
+                        <td>${expense.date}</td>
+                        <td>
+                            <button class="edit-btn" data-id="${expense.id}">Edit</button>
+                            <button class="delete-btn" data-id="${expense.id}">Delete</button>
+                        </td>
+                    `;
+
+                    expenseList.appendChild(row);
+                });
+            }
+
+            function updateTotalAmount() {
+                const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+                totalAmount.textContent = total.toFixed(2);
+                updateBudget();
+            }
+        });
+
+        function updateCharts() {
+            const categories = [...new Set(expenses.map(expense => expense.category))];
+            const amounts = categories.map(category =>
+                expenses.filter(expense => expense.category === category).reduce((sum, expense) => sum + expense.amount, 0)
+            );
+
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+
+            if (barChart) barChart.destroy();
+            if (pieChart) pieChart.destroy();
+
+            barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: 'Expenses',
+                        data: amounts,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            pieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        data: amounts,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+        }
+        const navbarMenu = document.querySelector(".navbar .links");
+const hamburgerBtn = document.querySelector(".hamburger-btn");
+const hideMenuBtn = navbarMenu.querySelector(".close-btn");
+const showPopupBtn = document.querySelector(".login-btn");
+const formPopup = document.querySelector(".form-popup");
+const hidePopupBtn = formPopup.querySelector(".close-btn");
+const signupLoginLink = formPopup.querySelectorAll(".bottom-link a");
+// Show mobile menu
+hamburgerBtn.addEventListener("click", () => {
+    navbarMenu.classList.toggle("show-menu");
+});
+// Hide mobile menu
+hideMenuBtn.addEventListener("click", () =>  hamburgerBtn.click());
+// Show login popup
+showPopupBtn.addEventListener("click", () => {
+    document.body.classList.toggle("show-popup");
+});
+// Hide login popup
+hidePopupBtn.addEventListener("click", () => showPopupBtn.click());
+// Show or hide signup form
+signupLoginLink.forEach(link => {
+    link.addEventListener("click", (e) => {
+        e.preventDefault();
+        formPopup.classList[link.id === 'signup-link' ? 'add' : 'remove']("show-signup");
+    });
+});
+function home(){
+    window.open("hom.html")
+}
+    </script>
+</body>
+</html>

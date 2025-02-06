@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Expense Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url("/images/ll.jpg") center/cover no-repeat;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            color: white;
+            width: 100%;
+        }
+
+        .navbar .hamburger-btn {
+            display: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .navbar .logo {
+            gap: 10px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .navbar .logo img {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .navbar .logo h2 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.7rem;
+        }
+
+        .navbar .links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            display: none;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .navbar .links a {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.1s ease;
+        }
+
+        .navbar .links a:hover {
+            color: #19e8ff;
+        }
+
+        .navbar .login-btn {
+            border: none;
+            outline: none;
+            background: #e2b355;
+            color: #275360;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.15s ease;
+        }
+
+        .navbar .login-btn:hover {
+            background: #ddd;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: #ff5a5f;
+        }
+
+        .login-container button {
+            width: 100%;
+            background-color: #f72d34;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #0bd4f7;
+        }
+
+        .login-container .signup-link {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .login-container .signup-link a {
+            color: #ff5a5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-container .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: rgba(20, 21, 21, 0.8);
+            color: rgb(244, 241, 241);
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="animate__animated animate__fadeInDown">
+        <nav class="navbar">
+            <span class="hamburger-btn material-symbols-rounded">menu</span>
+            <a href="hom.html" class="logo">
+                <img src="/images/logo.png" alt="logo">
+                <h2>Budgetingtool</h2>
+            </a>
+            <ul class="links">
+                <span class="close-btn material-symbols-rounded">close</span>
+                <li><a href="#">Expenses tracker</a></li>
+                <li><a href="#">Investment plans</a></li>
+                <li><a href="#">Health Insurance</a></li>
+                <li><a href="#">Financial Calculator</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="login-container animate__animated animate__fadeInUp">
+        <h2>LOGIN</h2>
+        <p>Login to start tracking your expenses and managing your budget.</p>
+        <form id="login-form">
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+        </div>
+    </div>
+
+    <footer class="animate__animated animate__fadeInUp">
+        <p>&copy; INTERACTIVE BUDGETING TOOL.</p>
+    </footer>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Add your login logic here
+            console.log('Email:', email);
+            console.log('Password:', password);
+
+            alert('Login successful! Redirecting...');
+            window.location.href = 'hom.html';
+        });
+
+        const navbarMenu = document.querySelector(".navbar .links");
+        const hamburgerBtn = document.querySelector(".hamburger-btn");
+        const hideMenuBtn = navbarMenu.querySelector(".close-btn");
+
+        // Show mobile menu
+        hamburgerBtn.addEventListener("click", () => {
+            navbarMenu.classList.toggle("show-menu");
+        });
+
+        // Hide mobile menu
+        hideMenuBtn.addEventListener("click", () => hamburgerBtn.click());
+    </script>
+</body>
+
+</html>
